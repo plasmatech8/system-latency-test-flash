@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System Latency Test - Flash</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        transition: background 500ms linear;
+      }
+    </style>
+  </head>
+  <body tabindex="0">
+    <script>
+      function flash() {
+        // Force instant white
+        document.body.style.transition = "none";
+        document.body.style.background = "white";
+
+        // Let white apply, then fade to black
+        requestAnimationFrame(() => {
+          document.body.offsetHeight; // force reflow (important!)
+          document.body.style.transition = "background 500ms linear";
+          document.body.style.background = "black";
+        });
+      }
+
+      // Ensure keyboard focus works
+      document.body.focus();
+
+      // Event hooks
+      document.addEventListener("mousemove", flash, { passive: true });
+      document.addEventListener("mousedown", flash);
+      document.addEventListener("keydown", flash);
+    </script>
+  </body>
+</html>
